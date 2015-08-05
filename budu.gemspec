@@ -13,11 +13,6 @@ Gem::Specification.new do |spec|
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "http://ireallyhopethisisntadomainname2.com"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
-  end
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.files = Dir.glob("{bin,lib}/**/*") + %w( README.md)
@@ -29,5 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rack-test"
   spec.add_development_dependency "test-unit"
+  spec.add_runtime_dependency "multi_json"
   spec.add_runtime_dependency "rack", "~> 1.0"
+  spec.add_runtime_dependency "erubis"
 end

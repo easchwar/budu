@@ -1,6 +1,15 @@
 require_relative 'test_helper'
 
+class TestController < Budu::Controller
+  def testing
+    "Hello"
+  end  
+end
+
 class TestApp < Budu::Application
+  def get_controller_and_action(env)
+    [TestController, "testing"]
+  end
 end
 
 class BuduTestApp < Test::Unit::TestCase
