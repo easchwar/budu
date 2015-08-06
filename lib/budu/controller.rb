@@ -1,5 +1,6 @@
 require 'erubis'
 require 'budu/file_model'
+require 'rack/request'
 
 module Budu
   class Controller
@@ -8,6 +9,14 @@ module Budu
 
     def initialize(env)
       @env = env
+    end
+
+    def request
+      @request ||= Rack.Request.new(env)
+    end
+
+    def params
+      request.params
     end
 
     def controller_name
