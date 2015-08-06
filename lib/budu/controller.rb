@@ -1,6 +1,6 @@
-require 'erubis'
-require 'budu/file_model'
 require 'rack/request'
+require 'budu/file_model'
+require 'budu/view'
 
 module Budu
   class Controller
@@ -26,8 +26,15 @@ module Budu
       @response
     end
 
-    def render(*args)
-      response(render_content(*args))
+    def render(view_name, locals = {})
+      ivars = {} 
+      instance_variables.each do |name|
+        ivars[name] = instance_variable_get(name)
+      end
+
+      view = Budu::View.new(view_name, env, ivars)
+
+      response(view.render_content(controller_name, locals))
     end
 
     def params
@@ -39,15 +46,6 @@ module Budu
       klass = klass.to_s.gsub(/Controller$/, '')
 
       Budu.to_underscore(klass)
-    end
-
-    def render_content(view_name, locals = {})
-      # default file path
-      file_name = File.join("app","views", controller_name, "#{view_name}.html.erb")
-      template = File.read(file_name)
-       
-      eruby = Erubis::Eruby.new(template)
-      eruby.result(locals.merge({ env: env }))
     end
   end
 end
