@@ -22,27 +22,26 @@ module Budu
         return [404, {'Content-Type' => 'text/html'}, []]
       end
 
-      klass, action = get_controller_and_action(env)
+      # parse the controller and action from the env (uses old rails routing)
+      klass, action = get_controller_and_action(env) 
 
       begin 
-        controller = klass.new(env)
+        controller = klass.new(env) 
       rescue
         return [500, {'Content-Type' => 'text/html'}, ["No controller named #{klass}"]]
       end
 
-      # no error handling :(
-      text = controller.send(action)
+      # call the appropriate action on the controller 
+      controller.send(action) # no error handling :(
 
       # if the controller didn't render a response, render one with the action name
       controller.render(action) unless controller.get_response
 
       # return the data based on the response
       status, headers, resp = controller.get_response.to_a
+      puts "headers: #{headers}" # debugging
       headers['Content-Type'] = 'text/html' # right now putting this here to force html
-      puts headers
       [status, headers, [resp.body].flatten]
-
     end
   end
-
 end
