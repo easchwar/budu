@@ -6,6 +6,12 @@ require "budu/controller"
 require "budu/file_model"
 
 module Budu
+  # this is where the magic happens. Rack application
+  # the application gets called with environment variables 
+  # (i.e. the request), and it returns an array of
+  # [status, headers, body].
+  # Can be chained together (e.g. app1.call(env) calls app2.call(env))
+  # indefinitely.
   class Application
     def call(env)
       `echo debug > debug.txt`;
