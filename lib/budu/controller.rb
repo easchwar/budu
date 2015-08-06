@@ -12,7 +12,7 @@ module Budu
     end
 
     def request
-      @request ||= Rack.Request.new(env)
+      @request ||= Rack::Request.new(env)
     end
 
     def params
