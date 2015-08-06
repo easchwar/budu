@@ -15,6 +15,21 @@ module Budu
       @request ||= Rack::Request.new(env)
     end
 
+    def response(text, status = 200, headers = {})
+      raise "already responded" if @response
+
+      a = [text].flatten
+      @response = Rack::Response.new(a, status, headers)
+    end
+
+    def get_response
+      @response
+    end
+
+    def render(*args)
+      response(render_content(*args))
+    end
+
     def params
       request.params
     end
@@ -26,13 +41,13 @@ module Budu
       Budu.to_underscore(klass)
     end
 
-    def render(view_name, locals = {})
+    def render_content(view_name, locals = {})
       # default file path
       file_name = File.join("app","views", controller_name, "#{view_name}.html.erb")
       template = File.read(file_name)
        
       eruby = Erubis::Eruby.new(template)
-      eruby.result(locals.merge({env: env}))
+      eruby.result(locals.merge({ env: env }))
     end
   end
 end
