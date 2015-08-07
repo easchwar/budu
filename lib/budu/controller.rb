@@ -17,9 +17,7 @@ module Budu
 
     def response(text, status = 200, headers = {})
       raise "already responded" if @response
-
-      a = [text].flatten
-      @response = Rack::Response.new(a, status, headers)
+      @response = Rack::Response.new([text].flatten, status, headers)
     end
 
     def get_response

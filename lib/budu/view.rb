@@ -8,9 +8,6 @@ module Budu
       @name = name
       @ivars = ivars
       @env = env
-      # ivars.each do |name, val|
-      #   instance_variable_set("@#{name}", val)
-      # end
     end
 
     def render_content(controller_name, locals = {})
