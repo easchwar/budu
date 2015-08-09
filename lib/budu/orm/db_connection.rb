@@ -1,7 +1,8 @@
 require 'sqlite3'
 
 # https://tomafro.net/2010/01/tip-relative-paths-with-file-expand-path
-ROOT_FOLDER = File.join(File.dirname(__FILE__), '..')
+# ROOT_FOLDER = File.join(File.dirname(__FILE__), '..')
+ROOT_FOLDER = Dir.pwd
 MODEL_SQL_FILE = File.join(ROOT_FOLDER, 'local_db.sql')
 MODEL_DB_FILE = File.join(ROOT_FOLDER, 'local_db.db')
 
@@ -16,12 +17,17 @@ module Budu
     end
 
     def self.reset
-      commands = [
-        "rm '#{MODEL_DB_FILE}'",
-        "cat '#{MODEL_SQL_FILE}' | sqlite3 '#{MODEL_DB_FILE}'"
-      ]
+      # commands = [
+      #   "rm '#{MODEL_DB_FILE}'",
+      #   "cat '#{MODEL_SQL_FILE}' | sqlite3 '#{MODEL_DB_FILE}'"
+      # ]
+      #
+      # commands.each { |command| `#{command}` }
 
-      commands.each { |command| `#{command}` }
+      unless File.exist?(MODEL_DB_FILE)
+        `cat '#{MODEL_SQL_FILE}' | sqlite3 '#{MODEL_DB_FILE}'` 
+      end
+      
       DBConnection.open(MODEL_DB_FILE)
     end
 

@@ -4,6 +4,7 @@ require "budu/dependencies"
 require "budu/util"
 require "budu/controller"
 require "budu/file_model"
+require "budu/orm"
 
 module Budu
   # This is where everything happens. This is a Rack application 
