@@ -1,5 +1,6 @@
 require 'rack/request'
-require 'budu/file_model'
+require 'budu/orm/file_model'
+require 'budu/orm/sql_object'
 require 'budu/view'
 
 module Budu

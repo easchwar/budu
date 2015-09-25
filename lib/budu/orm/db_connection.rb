@@ -6,6 +6,7 @@ ROOT_FOLDER = Dir.pwd
 MODEL_SQL_FILE = File.join(ROOT_FOLDER, 'local_db.sql')
 MODEL_DB_FILE = File.join(ROOT_FOLDER, 'local_db.db')
 
+# Database connection to local sqlite db 'local_db.db'
 module Budu
   class DBConnection
     def self.open(db_file_name)
@@ -17,6 +18,8 @@ module Budu
     end
 
     def self.reset
+      # This used to reset the database every time the server started up.
+
       # commands = [
       #   "rm '#{MODEL_DB_FILE}'",
       #   "cat '#{MODEL_SQL_FILE}' | sqlite3 '#{MODEL_DB_FILE}'"

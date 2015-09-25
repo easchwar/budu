@@ -1,6 +1,7 @@
 require 'budu/orm/db_connection'
 require 'budu/util'
 
+# ORM using SQLite. Connects to a local db file using DBConnection.
 module Budu
   module Model
     class SQLObject

@@ -1,5 +1,6 @@
 require 'multi_json'
 
+# First ORM. Has nothing to do with SQLObject. Also it's terrible.
 module Budu
   module Model
     class FileModel
